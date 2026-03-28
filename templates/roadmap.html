@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Future Scalability Map{% endblock %}
+
+{% block content %}
+<section class="future-slide glass-panel full-page-slide">
+    <div class="future-intro">
+        <p>This roadmap outlines how the AI Reality Check Engine will scale to protect millions. Click any card to run a live simulation.</p>
+    </div>
+    
+    <div class="future-grid large-grid">
+        <div class="future-item" onclick="openSimulation('fintech')">
+            <div class="icon-box large"><i data-lucide="landmark"></i></div>
+            <h4>Fintech API</h4>
+            <p>Integrate with UPI apps (Paytm, GPay) to block fraudulent payments in real-time.</p>
+            <span class="try-btn">Try Simulation</span>
+        </div>
+        <div class="future-item" onclick="openSimulation('govt')">
+            <div class="icon-box large"><i data-lucide="shield-check"></i></div>
+            <h4>Govt Cyber Safety</h4>
+            <p>Auto-sync with National Cyber Crime Portal for instant reporting and case filing.</p>
+            <span class="try-btn">Try Simulation</span>
+        </div>
+        <div class="future-item" onclick="openSimulation('extension')">
+            <div class="icon-box large"><i data-lucide="chrome"></i></div>
+            <h4>Browser Extension</h4>
+            <p>Real-time overlay on WhatsApp Web and Gmail to flag phishing links instantly.</p>
+            <span class="try-btn">Try Simulation</span>
+        </div>
+        <div class="future-item" onclick="openSimulation('social')">
+            <div class="icon-box large"><i data-lucide="users"></i></div>
+            <h4>Social Awareness</h4>
+            <p>Gamified education modules for rural India to increase digital literacy.</p>
+            <span class="try-btn">Try Simulation</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Reality Check Engine</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="background-container">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar glass-panel">
+            <div class="logo-area">
+                <i data-lucide="shield-alert" class="logo-icon"></i>
+                <h2>Reality<br>Check</h2>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="/" class="nav-item {% if active_page == 'analyzer' %}active{% endif %}">
+                    <i data-lucide="scan-eye"></i>
+                    <span>Scanner</span>
+                </a>
+                <a href="/roadmap" class="nav-item {% if active_page == 'roadmap' %}active{% endif %}">
+                    <i data-lucide="map"></i>
+                    <span>Future Map</span>
+                </a>
+                <a href="/trends" class="nav-item {% if active_page == 'trends' %}active{% endif %}">
+                    <i data-lucide="bar-chart-2"></i>
+                    <span>Live Trends</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">AI</div>
+                    <div class="details">
+                        <span class="name">Admin</span>
+                        <span class="status">● Online</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="top-header">
+                <h2 class="page-title">{% block title %}Dashboard{% endblock %}</h2>
+                <div class="status-pill">
+                    <span class="dot"></span> System Active
+                </div>
+            </header>
+            
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- SIMULATION MODAL (Global) -->
+    <div id="simModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="modalTitle">Simulation</h3>
+                <button class="close-btn" onclick="closeSimulation()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalStep1" class="step">
+                    <div class="spinner"></div>
+                    <p id="modalLoadingText">Initializing...</p>
+                </div>
+                <div id="modalStep2" class="step hidden">
+                    <div class="success-icon"><i data-lucide="check-circle"></i></div>
+                    <p id="modalSuccessText">Done!</p>
+                    <div id="modalDetails" class="details-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

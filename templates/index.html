@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Reality Check Engine | Hackathon Edition</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="background-container">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+    
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="glass-header">
+            <div class="logo">
+                <i data-lucide="shield-alert"></i>
+                <div>
+                    <h1>Reality Check Engine</h1>
+                    <p>AI-Powered Scam & Manipulation Detector</p>
+                </div>
+            </div>
+            <div class="status-pill">
+                <span class="dot"></span> System Active
+            </div>
+        </header>
+
+        <main>
+            <!-- HERO INPUT SECTION -->
+            <section class="hero-section glass-panel">
+                <div class="input-wrapper">
+                    <textarea id="inputText" placeholder="Paste suspicious message here... (WhatsApp forward, Job offer, Email, etc.)"></textarea>
+                    <div class="input-actions">
+                        <button class="icon-btn" onclick="pasteClipboard()"><i data-lucide="clipboard"></i> Paste</button>
+                        <button class="icon-btn" onclick="clearText()"><i data-lucide="trash-2"></i> Clear</button>
+                    </div>
+                </div>
+                
+                <div class="control-bar">
+                    <div class="examples">
+                        <span>Try examples:</span>
+                        <button class="chip" onclick="loadExample('job')">💰 Job Scam</button>
+                        <button class="chip" onclick="loadExample('crypto')">🚀 Crypto</button>
+                        <button class="chip" onclick="loadExample('lottery')">🏆 Lottery</button>
+                        <button class="chip" onclick="loadExample('emotional')">😢 Emotional</button>
+                    </div>
+                    <button id="analyzeBtn" class="primary-btn glow-effect" onclick="analyzeText()">
+                        <span class="btn-text">Analyze Reality</span>
+                        <i data-lucide="sparkles"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- LOADING STATE -->
+            <div id="loading" class="hidden">
+                <div class="scanner-animation">
+                    <div class="scan-line"></div>
+                </div>
+                <p class="loading-text">Analyzing Patterns & Detecting Biases...</p>
+            </div>
+
+            <!-- RESULTS DASHBOARD -->
+            <div id="results" class="dashboard-grid hidden">
+                
+                <!-- 1. VERDICT & METER -->
+                <div class="card verdict-panel glass-panel">
+                    <div class="verdict-header">
+                        <h3>DIGITAL GUT FEELING</h3>
+                        <div class="live-indicator">LIVE ANALYSIS</div>
+                    </div>
+                    <div class="meter-container">
+                        <div class="meter-bg">
+                            <div id="riskMeterFill" class="meter-fill"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>Safe</span>
+                            <span>Suspicious</span>
+                            <span>High Risk</span>
+                        </div>
+                    </div>
+                    <div class="verdict-result">
+                        <h2 id="verdictTitle">High Risk 🚨</h2>
+                        <p id="verdictSubtitle">High probability of manipulation detected.</p>
+                    </div>
+                </div>
+
+                <!-- 2. SCORES -->
+                <div class="card scores-panel glass-panel">
+                    <h3>THREAT BREAKDOWN</h3>
+                    <div class="score-row">
+                        <div class="score-item">
+                            <span class="label">Manipulation</span>
+                            <div class="progress"><div id="manipulationBar" style="width:0%"></div></div>
+                            <span class="value" id="manipulationVal">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="label">Too Good To Be True</span>
+                            <div class="progress"><div id="tooGoodBar" style="width:0%"></div></div>
+                            <span class="value" id="tooGoodVal">0%</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="label">Emotional Trap</span>
+                            <div class="progress"><div id="emotionBar" style="width:0%"></div></div>
+                            <span class="value" id="emotionVal">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. AI INSIGHTS (Comparison & Biases) -->
+                <div class="card insights-panel glass-panel">
+                    <h3>🧠 AI BRAIN ANALYSIS</h3>
+                    
+                    <div class="comparison-box">
+                        <div class="human-side">
+                            <span class="emoji">🤯</span>
+                            <div class="bubble">
+                                <small>Typical Human Reaction</small>
+                                <p id="humanReactionText">"Wow! Easy money!"</p>
+                            </div>
+                        </div>
+                        <div class="vs-divider">VS</div>
+                        <div class="ai-side">
+                            <span class="emoji">🤖</span>
+                            <div class="bubble ai-bubble">
+                                <small>AI Reality Check</small>
+                                <p id="aiReasoningText">"Classic scarcity trap."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bias-tags" id="biasTags">
+                        <!-- Tags injected by JS -->
+                    </div>
+                </div>
+
+                <!-- 4. CONFIDENCE & TRANSPARENCY -->
+                <div class="card transparency-panel glass-panel">
+                    <h3>🔍 CONFIDENCE BREAKDOWN (Why trust this?)</h3>
+                    <ul class="confidence-list" id="confidenceList">
+                        <!-- Injected by JS -->
+                    </ul>
+                </div>
+
+                <!-- 5. REALITY CHECK QUESTIONS -->
+                <div class="card questions-panel glass-panel">
+                    <h3>🧪 REALITY CHECK QUESTIONS</h3>
+                    <p class="sub-text">Ask yourself these before acting:</p>
+                    <ul class="question-list" id="questionsList">
+                        <!-- Injected by JS -->
+                    </ul>
+                </div>
+
+                <!-- 6. ACTION PLAN -->
+                <div class="card action-panel glass-panel">
+                    <h3>🛡️ RECOMMENDED ACTIONS</h3>
+                    <div class="action-buttons" id="actionButtons">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+                
+                <!-- 7. SCAM CATEGORY & SOURCE -->
+                <div class="card meta-panel glass-panel">
+                    <div class="meta-item">
+                        <i data-lucide="tag"></i>
+                        <div>
+                            <small>Category</small>
+                            <strong id="categoryText">Job Scam</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <i data-lucide="globe"></i>
+                        <div>
+                            <small>Source Credibility</small>
+                            <strong id="sourceText">Low</strong>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <i data-lucide="languages"></i>
+                        <div>
+                            <small>Language</small>
+                            <strong id="languageText">Hinglish</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- FUTURE SCALE SLIDE (Power Move) -->
+            <section class="future-slide glass-panel">
+                <div class="future-header" onclick="toggleFutureSlide()">
+                    <h3>🚀 FUTURE SCALABILITY MAP</h3>
+                    <i data-lucide="chevron-down" id="futureIcon"></i>
+                </div>
+                <div class="future-content hidden" id="futureContent">
+                    <div class="future-grid">
+                        <div class="future-item" onclick="openSimulation('fintech')">
+                            <div class="icon-box"><i data-lucide="landmark"></i></div>
+                            <h4>Fintech API</h4>
+                            <p>Integrate with UPI apps to block payments.</p>
+                            <span class="try-btn">Try Simulation</span>
+                        </div>
+                        <div class="future-item" onclick="openSimulation('govt')">
+                            <div class="icon-box"><i data-lucide="shield-check"></i></div>
+                            <h4>Govt Cyber Safety</h4>
+                            <p>Auto-report to Cyber Crime Portal.</p>
+                            <span class="try-btn">Try Simulation</span>
+                        </div>
+                        <div class="future-item" onclick="openSimulation('extension')">
+                            <div class="icon-box"><i data-lucide="chrome"></i></div>
+                            <h4>Browser Extension</h4>
+                            <p>Real-time overlay on WhatsApp Web.</p>
+                            <span class="try-btn">Try Simulation</span>
+                        </div>
+                        <div class="future-item" onclick="openSimulation('social')">
+                            <div class="icon-box"><i data-lucide="users"></i></div>
+                            <h4>Social Awareness</h4>
+                            <p>Gamified education for rural users.</p>
+                            <span class="try-btn">Try Simulation</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- SIMULATION MODAL -->
+    <div id="simModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="modalTitle">Simulation</h3>
+                <button class="close-btn" onclick="closeSimulation()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalStep1" class="step">
+                    <div class="spinner"></div>
+                    <p id="modalLoadingText">Initializing...</p>
+                </div>
+                <div id="modalStep2" class="step hidden">
+                    <div class="success-icon"><i data-lucide="check-circle"></i></div>
+                    <p id="modalSuccessText">Done!</p>
+                    <div id="modalDetails" class="details-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}Live Scam Trends{% endblock %}
+
+{% block content %}
+<div class="trends-grid">
+    <!-- STATS CARDS -->
+    <div class="stat-card glass-panel">
+        <div class="stat-icon"><i data-lucide="activity"></i></div>
+        <div class="stat-info">
+            <h3>1,245</h3>
+            <p>Scams Blocked Today</p>
+        </div>
+    </div>
+    <div class="stat-card glass-panel">
+        <div class="stat-icon warning"><i data-lucide="alert-triangle"></i></div>
+        <div class="stat-info">
+            <h3>Job Scams</h3>
+            <p>Top Threat (45%)</p>
+        </div>
+    </div>
+    <div class="stat-card glass-panel">
+        <div class="stat-icon success"><i data-lucide="shield"></i></div>
+        <div class="stat-info">
+            <h3>₹2.5 Cr</h3>
+            <p>Potential Loss Prevented</p>
+        </div>
+    </div>
+
+    <!-- MOCK CHART -->
+    <div class="chart-panel glass-panel full-width">
+        <h3>📉 Weekly Scam Activity</h3>
+        <div class="mock-chart">
+            <div class="bar" style="height: 40%" data-label="Mon"></div>
+            <div class="bar" style="height: 65%" data-label="Tue"></div>
+            <div class="bar" style="height: 30%" data-label="Wed"></div>
+            <div class="bar" style="height: 85%" data-label="Thu"></div>
+            <div class="bar" style="height: 50%" data-label="Fri"></div>
+            <div class="bar" style="height: 70%" data-label="Sat"></div>
+            <div class="bar" style="height: 20%" data-label="Sun"></div>
+        </div>
+    </div>
+
+    <!-- RECENT ALERTS -->
+    <div class="alerts-panel glass-panel full-width">
+        <h3>🔔 Recent Community Alerts</h3>
+        <div class="alert-list">
+            <div class="alert-item">
+                <span class="badge danger">High</span>
+                <p>New "Part-time Job" SMS circulating in Delhi NCR.</p>
+                <small>2 mins ago</small>
+            </div>
+            <div class="alert-item">
+                <span class="badge warning">Medium</span>
+                <p>Fake "Electricity Bill" WhatsApp messages reported.</p>
+                <small>15 mins ago</small>
+            </div>
+            <div class="alert-item">
+                <span class="badge safe">Info</span>
+                <p>Govt advisory issued for "Digital Arrest" scams.</p>
+                <small>1 hour ago</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
